@@ -1,0 +1,25 @@
+{
+    "name": "omh/laragen",
+    "description": "Laragen is an open source package that gives the ability of generating a couple file structure for your Laravel application",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohammed Hicham",
+            "email": "mohammed@medhicham.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laragen\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laragen\\Tests\\" : "test/"
+        }
+    }
+}
