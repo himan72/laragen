@@ -26,5 +26,12 @@
         "psr-4": {
             "Laragen\\Tests\\" : "test/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laragen\\LaragenServiceProvider"
+            ]
+        }
     }
 }
