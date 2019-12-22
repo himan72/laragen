@@ -13,6 +13,13 @@ class Model
      */
     private $name;
 
+
+    /**
+     * Model name
+     * @var string
+     */
+    private $namespace = 'App';
+
     /**
      * model attributes
      * @var array
@@ -144,6 +151,31 @@ class Model
     public function disableTimestamps()
     {
         $this->timestamps = false;
+    }
+
+    public function fillables()
+    {
+        return array_keys($this->attributes());
+
+    }
+
+    /**
+     * @param  string  $namespace
+     *
+     */
+    public function setNamespace(string $namespace)
+    {
+        $this->namespace = $namespace;
+
+    }
+
+    /**
+     * @return string
+     */
+    public function namespace()
+    {
+        return $this->namespace ;
+
     }
 
 }
