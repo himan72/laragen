@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 use Laragen\Contracts\Builder;
 use Laragen\Entities\Model;
 
-class ModelBuilder
+class ModelBuilder implements Builder
 {
 
     /**
