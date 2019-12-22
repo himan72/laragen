@@ -5,5 +5,7 @@ models:
       content: longtext
       published_at: nullable timestamp
       archived_at: nullable timestamp
+      draft: boolean
     casts:
       datetime: published_at archived_at
+      boolean: draft
