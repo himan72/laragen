@@ -6,6 +6,9 @@ models:
       published_at: nullable timestamp
       archived_at: nullable timestamp
       draft: boolean
+      commented: boolean
+      reviews: string
     casts:
       datetime: published_at archived_at
-      boolean: draft
+      boolean: draft commented
+      array: reviews
