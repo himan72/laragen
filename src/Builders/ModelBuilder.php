@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Laragen\Builders;
-
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
@@ -11,7 +9,6 @@ use Laragen\Entities\Model;
 
 class ModelBuilder implements Builder
 {
-
     /**
      * @var Model
      */
@@ -22,7 +19,6 @@ class ModelBuilder implements Builder
      */
     protected $files;
 
-
     /**
      * @var string
      */
@@ -31,7 +27,7 @@ class ModelBuilder implements Builder
     /**
      * ModelBuilder constructor.
      *
-     * @param  Model  $model
+     * @param Model $model
      * @param $files
      */
     public function __construct(Model $model, $files)
@@ -48,12 +44,10 @@ class ModelBuilder implements Builder
      */
     public function build()
     {
-            $modelfile = str_replace('//...', $this->buildBody(), $this->buildClass());
+        $modelfile = str_replace('//...', $this->buildBody(), $this->buildClass());
 
-            $this->files->put(dirname(__DIR__)."/{$this->model->name()}.php", $modelfile);
-
+        $this->files->put(dirname(__DIR__)."/{$this->model->name()}.php", $modelfile);
     }
-
 
     private function buildClass()
     {
@@ -65,23 +59,19 @@ class ModelBuilder implements Builder
         return $model_class_body;
     }
 
-
     private function buildBody()
     {
-        $this->buildFillables()
-             ->buildDates()
-            ->buildCasts();
+        $this->buildFillables()->buildDates()->buildCasts();
 
         return $this->body;
-
         // todo relations, soft delete table primarykey route key
 
     }
 
     private function buildFillables()
     {
-        if (!empty($fillables = $this->model->fillables())) {
-            $stub  = $this->files->get(dirname(__DIR__).'/stubs/model/fillable.stub');
+        if (! empty($fillables = $this->model->fillables())) {
+            $stub = $this->files->get(dirname(__DIR__).'/stubs/model/fillable.stub');
             $parts = '';
             foreach ($fillables as $part) {
                 $parts .= "'{$part}', ";
@@ -99,41 +89,37 @@ class ModelBuilder implements Builder
         if (isset($this->model->casts()['datetime'])) {
 
             $dates = $this->model->casts()['datetime'];
-            $stub  = $this->files->get(dirname(__DIR__).'/stubs/model/dates.stub');
-            $dates =  preg_split('/\s+/', trim($dates));
+            $stub = $this->files->get(dirname(__DIR__).'/stubs/model/dates.stub');
+            $dates = preg_split('/\s+/', trim($dates));
 
-            $parts= '';
+            $parts = '';
             foreach ($dates as $part) {
                 $parts .= "'{$part}', ";
             }
-            $this->body .= PHP_EOL. str_replace('//...', $parts, $stub);
+            $this->body .= PHP_EOL.str_replace('//...', $parts, $stub);
         }
 
         return $this;
-
     }
-
 
     private function buildCasts()
     {
 
-        if (! empty($this->model->casts())){
+        if (! empty($this->model->casts())) {
 
             $casts = Arr::except($this->model->casts(), ['datetime']);
             $cast_arr = '';
-            foreach ($casts as  $cast_type => $proerties) {
+            foreach ($casts as $cast_type => $proerties) {
                 $attrs = preg_split('/\s+/', trim($proerties));
-                foreach ($attrs as $attr)   {
-                $cast_arr .= "'{$attr}' => '{$cast_type}',\n";
+                foreach ($attrs as $attr) {
+                    $cast_arr .= "'{$attr}' => '{$cast_type}',\n";
                 }
-
             }
-            $stub  = $this->files->get(dirname(__DIR__).'/stubs/model/casts.stub');
+            $stub = $this->files->get(dirname(__DIR__).'/stubs/model/casts.stub');
 
-            $this->body .= PHP_EOL.str_replace('//...',  $cast_arr, $stub);
+            $this->body .= PHP_EOL.str_replace('//...', $cast_arr, $stub);
         }
 
         return $this;
-
     }
 }
