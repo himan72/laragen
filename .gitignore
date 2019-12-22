@@ -16,3 +16,4 @@ yarn-error.log
 /storage/debugbar
 .env.testing
 .env.dusk.local
+index.php
