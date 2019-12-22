@@ -8,7 +8,11 @@
             "email": "mohammed@medhicham.com"
         }
     ],
-    "require": {},
+    "require": {
+        "illuminate/support": "^6.8",
+        "illuminate/filesystem": "^6.8",
+        "illuminate/console": "^6.8"
+    },
     "require-dev": {
         "orchestra/testbench": "^4.0"
     },
