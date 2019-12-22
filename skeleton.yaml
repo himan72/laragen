@@ -1,0 +1,9 @@
+models:
+  Post:
+    attributes:
+      title: string:400
+      content: longtext
+      published_at: nullable timestamp
+      archived_at: nullable timestamp
+    casts:
+      datetime: published_at archived_at
