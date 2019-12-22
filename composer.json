@@ -9,8 +9,9 @@
         }
     ],
     "require": {
-        "illuminate/support": "^6.8",
+        "symfony/yaml": "^5.0",
         "illuminate/filesystem": "^6.8",
+        "illuminate/support": "^6.8",
         "illuminate/console": "^6.8"
     },
     "require-dev": {
