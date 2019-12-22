@@ -100,7 +100,8 @@ class ModelBuilder
 
             $dates = $this->model->casts()['datetime'];
             $stub  = $this->files->get(dirname(__DIR__).'/stubs/model/dates.stub');
-            $dates = explode(' ', $dates);
+            $dates =  preg_split('/\s+/', trim($dates));
+
             $parts= '';
             foreach ($dates as $part) {
                 $parts .= "'{$part}', ";
@@ -120,8 +121,12 @@ class ModelBuilder
 
             $casts = Arr::except($this->model->casts(), ['datetime']);
             $cast_arr = '';
-            foreach ($casts as $attr => $cast_type) {
+            foreach ($casts as  $cast_type => $proerties) {
+                $attrs = preg_split('/\s+/', trim($proerties));
+                foreach ($attrs as $attr)   {
                 $cast_arr .= "'{$attr}' => '{$cast_type}',\n";
+                }
+
             }
             $stub  = $this->files->get(dirname(__DIR__).'/stubs/model/casts.stub');
 
