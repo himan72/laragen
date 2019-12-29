@@ -16,23 +16,17 @@ class ModelFactory implements Factory
 
         $model = new Model(Str::studly($name));
 
-        if(isset($data['attributes'])) {
-        $model->setAttributes($data['attributes']);
-        }
-
-        if(isset($data['casts'])) {
-            $model->setCasts($data['casts']);
-        }
-
-        if(isset($data['relations'])) {
-            $model->setRelations($data['relations']);
+        foreach($data as $name =>  $field){
+            if (method_exists($model, $method = 'set'.Str::camel($name))){
+                $model->$method($field);
+            }
         }
 
         if(isset($data['timestamps']) && ! $data['timestamps']) {
             $model->disableTimestamps();
         }
 
-        if(isset($data['sofDeletes']) && $data['sofDeletes']) {
+        if(isset($data['softDeletes']) && $data['softDeletes']) {
             $model->enableSoftDeletes();
         }
 
