@@ -4,6 +4,8 @@
 namespace Laragen\Entities;
 
 
+use Illuminate\Support\Str;
+
 class Model
 {
 
@@ -12,7 +14,6 @@ class Model
      * @var string
      */
     private $name;
-
 
     /**
      * Model name
@@ -46,6 +47,18 @@ class Model
      * @var bool
      */
     private $softDeletes = false;
+
+    /**
+     * @var string
+     */
+    private $tableName;
+
+    /**
+     * the model route key name
+     *
+     * @var string
+     */
+    private $route_key_name= 'id';
 
 
     /**
@@ -143,9 +156,9 @@ class Model
     /**
      * @param  bool  $softDeletes
      */
-    public function enableSoftDeletes(bool $softDeletes)
+    public function enableSoftDeletes()
     {
-        $this->softDeletes = $softDeletes;
+        $this->softDeletes = true;
     }
 
     public function disableTimestamps()
@@ -178,4 +191,30 @@ class Model
 
     }
 
+    /**
+     * The model's table name
+     * @return string
+     */
+    public function tableName() : string
+    {
+        return Str::snake(Str::pluralStudly($this->name));
+
+    }
+
+    /**
+     * @return string
+     */
+    public function routeKeyName(): string
+    {
+        return $this->route_key_name;
+    }
+
+    /**
+     * @param string $route_key_name
+     * @return string
+     */
+    public function setRouteKeyName(string $route_key_name)
+    {
+        $this->route_key_name = $route_key_name;
+    }
 }
