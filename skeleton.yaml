@@ -1,7 +1,9 @@
 models:
-  Post:
+  Article:
+    namespace: App\Models
     attributes:
       title: string:400
+      slug: string:400
       content: longtext
       published_at: nullable timestamp
       archived_at: nullable timestamp
@@ -12,3 +14,11 @@ models:
       datetime: published_at archived_at
       boolean: draft commented
       array: reviews
+    softDeletes: true
+
+  Comment:
+    namespace: App\Models
+    attributes:
+      message: string:400
+      user_id: string:400
+      post_id: longtext
